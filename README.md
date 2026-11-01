@@ -7,7 +7,7 @@ Built for the **Introduction to Programming & Physical Computing Seminar** in IA
 - **Students:** Daniel Feldman, Talbert DeAndre Herndon
 - **Instructor:** Daniel Mateos San Martin
 
-![reRavel prototype](images/reravel-prototype.jpg)
+![reRavel prototype](images/reravel-hero.jpg)
 
 ## Concept
 
