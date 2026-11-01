@@ -1,21 +1,100 @@
-# Adaptive Tensile
+# reRavel: Adaptive Tensile Structure
 
-Arduino sketch for an adaptive tensile structure prototype. A 28BYJ-48 stepper motor tensions the structure, and a potentiometer controls its direction and speed.
+A responsive, cable-driven tensile canopy. A single stepper motor winds and unwinds cables on a spindle, and suspended weights pull back against it. Together they raise, lower and reshape a fabric canopy.
 
-## How it works
+Built for the **Introduction to Programming & Physical Computing Seminar** in IAAC's Master in Advanced Architecture, 2026/2027.
 
-- **Button (pin 3):** toggles the motor on and off.
-- **Potentiometer (A6):** centered = stopped (with a dead zone); turn one way to wind, the other way to unwind. The further from center, the faster it moves.
-- Pot readings and speed are printed to the Serial Monitor at 9600 baud.
+- **Students:** Daniel Feldman, Talbert DeAndre Herndon
+- **Instructor:** Daniel Mateos San Martin
+
+![reRavel prototype](images/prototype.jpg)
+
+## Concept
+
+Inspired by Frei Otto's tensile structures, reRavel explores where **tensile and kinetic architecture** meet. Tensile structures are flexible and light, so they can adapt and respond to outside forces.
+
+A motorized system controls the canopy's openings and shape. The project explores how complex structural movement can come from a simple mechanical system. Suspended weights provide opposing tension, so the fabric rises, falls and transforms as the forces shift.
+
+![Concept diagram: inputs (sensors, power, knob, button) drive outputs (stepper motor, screen, cable)](images/concept.jpg)
+
+**System layout:**
+- **Above the floor plate:** the primary structure (6 mm wooden dowels) and a lightweight fabric canopy.
+- **Below the floor plate:** the mechanics, hardware and wiring.
+- **Openings in the floor plate:** they let the 2 mm cable slide through as the spindle winds and unwinds. Visitors can also see the mechanism through them, which shows how the canopy works while they experience the space.
+
+![Systems integration](images/systems-integration.jpg)
+
+## Prototyping
+
+![Prototype iterations](images/iterations.jpg)
+
+| Iteration | System | Result |
+|---|---|---|
+| 1st | One cable, fully integrated motor | The motor dragged the cable instead of winding it |
+| 2nd | Two cables on a double spindle | One side winds while the other unwinds |
+| Final | Two cables with weighted tension, two-flag position detection and built-in control electronics | Reliable, controllable movement |
+
+### Spindle iterations
+
+The spindle diameter trades speed against torque:
+
+| Spindle diameter | Speed | Result |
+|---|---|---|
+| 6 mm | ~55 s per 10 cm | Too slow |
+| 70 mm | ~15 s per 10 cm | Fast, but not enough torque under load |
+| **15 mm** (final) | **~20 s per 10 cm** | **Reliable under load, with good speed** |
+
+![Spindle iterations](images/spindle-iterations.jpg)
+
+### Final prototype
+
+Built on top of a 40 cm × 70 cm grid. Cable clips keep the string in place, and the input and output hardware are mounted on the front for easy use.
+
+![Final prototype details](images/final-prototype-details.jpg)
 
 ## Hardware
 
-| Part | Connection |
+![Schematic and bill of materials](images/schematic-bom.jpg)
+
+| Component | Qty | Function |
+|---|---|---|
+| Seeed Studio Grove Beginner Kit | 1 | Main microcontroller |
+| Grove OLED Display (0.96", SSD1315) | 1 | Displays system status |
+| Grove Rotary Potentiometer | 1 | Controls motor speed and direction |
+| Grove Push Button | 1 | Turns the motor on and off |
+| Grove Ultrasonic Distance Sensor | 1 | Detects movement or nearby objects |
+| 28BYJ-48 5V Stepper Motor | 1 | Adjusts cable tension |
+| ULN2003 Motor Driver | 1 | Drives the stepper motor |
+| Jumper wires / Grove cables | Set | Electrical connections |
+
+### Pin connections used by this sketch
+
+| Part | Pin |
 |---|---|
-| 28BYJ-48 stepper + ULN2003 driver | IN1–IN4 → pins 8, 9, 10, 11 |
-| Potentiometer | A6 |
-| Grove button | pin 3 (HIGH when pressed) |
+| ULN2003 IN1–IN4 | 8, 9, 10, 11 |
+| Rotary potentiometer | A6 |
+| Push button | D3 (HIGH when pressed) |
 
-## Usage
+The current sketch uses only the button, the potentiometer and the stepper. The OLED display and ultrasonic sensor are part of the hardware setup but are not used in this code yet.
 
-Open `adaptive_tensile.ino` in the Arduino IDE, select your board and port, and upload. Uses the built-in `Stepper` library.
+## How the code works
+
+[`adaptive_tensile.ino`](adaptive_tensile.ino)
+
+- **Button:** toggles the motor on and off. It is debounced so one press counts once.
+- **Potentiometer:** the center position (with a ±50 dead zone) stops the motor. Turning one way winds the cable and turning the other way unwinds it. The further the knob is from center, the faster the motor moves (1–10 RPM).
+- **Serial Monitor (9600 baud):** shows the motor's on/off state, the potentiometer reading and the current speed.
+
+### Uploading
+
+1. Open `adaptive_tensile.ino` in the Arduino IDE. It uses the built-in `Stepper` library, so nothing else needs installing.
+2. Select your board and port.
+3. Click **Upload**, then open the Serial Monitor at 9600 baud.
+
+## Future development
+
+The next step applies the same logic to a more complex, dynamic canopy, with **independent control over several anchor points**. That would allow far more varied and unusual shapes. Combined with environmental sensors, the system could eventually **respond to wind, movement and changing conditions in real time**.
+
+![Concept render: six-axis adaptive tensile canopy](images/future-six-axis-concept.jpg)
+
+*Concept render of a future six-axis version.*
