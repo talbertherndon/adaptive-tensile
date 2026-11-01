@@ -7,7 +7,7 @@ Built for the **Introduction to Programming & Physical Computing Seminar** in IA
 - **Students:** Daniel Feldman, Talbert DeAndre Herndon
 - **Instructor:** Daniel Mateos San Martin
 
-![reRavel prototype](images/prototype.jpg)
+![reRavel prototype](images/reravel-prototype.jpg)
 
 ## Concept
 
@@ -28,11 +28,11 @@ A motorized system controls the canopy's openings and shape. The project explore
 
 ![Prototype iterations](images/iterations.jpg)
 
-| Iteration | System | Result |
-|---|---|---|
-| 1st | One cable, fully integrated motor | The motor dragged the cable instead of winding it |
-| 2nd | Two cables on a double spindle | One side winds while the other unwinds |
-| Final | Two cables with weighted tension, two-flag position detection and built-in control electronics | Reliable, controllable movement |
+| Iteration | Description |
+|---|---|
+| 1st | One-cable, fully integrated motor system, dragging the cable rather than winding it |
+| 2nd | A two-cable system with a double spindle that winds and unwinds either side at the same time |
+| Final | Dual-cable system with weighted tension, two-flag position detection and integrated control electronics |
 
 ### Spindle iterations
 
@@ -90,11 +90,3 @@ The current sketch uses only the button, the potentiometer and the stepper. The 
 1. Open `adaptive_tensile.ino` in the Arduino IDE. It uses the built-in `Stepper` library, so nothing else needs installing.
 2. Select your board and port.
 3. Click **Upload**, then open the Serial Monitor at 9600 baud.
-
-## Future development
-
-The next step applies the same logic to a more complex, dynamic canopy, with **independent control over several anchor points**. That would allow far more varied and unusual shapes. Combined with environmental sensors, the system could eventually **respond to wind, movement and changing conditions in real time**.
-
-![Concept render: six-axis adaptive tensile canopy](images/future-six-axis-concept.jpg)
-
-*Concept render of a future six-axis version.*
