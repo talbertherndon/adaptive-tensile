@@ -87,6 +87,12 @@ The OLED display is part of the hardware setup but is not used in this code yet.
 - **Two-flag detection:** the ultrasonic sensor watches for flags on the cable. When a flag comes within 8 cm, the motor reverses direction, so the canopy moves back and forth between the two flags. The flag must move beyond 11 cm before it can trigger again, and the sensor ignores further triggers for 20 seconds after each reversal.
 - **Serial Monitor (9600 baud):** shows the motor's on/off state, each flag detection with a running count, the new direction and when the sensor is ready again.
 
+### Logic flowchart
+
+![Logic flowchart of adaptive_tensile.ino](images/logic-flowchart.jpg)
+
+A scalable version is in [`images/logic-flowchart.svg`](images/logic-flowchart.svg).
+
 ### Uploading
 
 1. Open `adaptive_tensile.ino` in the Arduino IDE. It uses the built-in `Stepper` library, so nothing else needs installing.
