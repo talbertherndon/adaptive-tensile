@@ -74,16 +74,18 @@ Built on top of a 40 cm × 70 cm grid. Cable clips keep the string in place, and
 | ULN2003 IN1–IN4 | 8, 9, 10, 11 |
 | Rotary potentiometer | A6 |
 | Push button | D3 (HIGH when pressed) |
+| Grove ultrasonic sensor (single signal pin) | A2 |
 
-The current sketch uses only the button, the potentiometer and the stepper. The OLED display and ultrasonic sensor are part of the hardware setup but are not used in this code yet.
+The OLED display is part of the hardware setup but is not used in this code yet.
 
 ## How the code works
 
 [`adaptive_tensile.ino`](adaptive_tensile.ino)
 
-- **Button:** toggles the motor on and off. It is debounced so one press counts once.
-- **Potentiometer:** the center position (with a ±50 dead zone) stops the motor. Turning one way winds the cable and turning the other way unwinds it. The further the knob is from center, the faster the motor moves (1–10 RPM).
-- **Serial Monitor (9600 baud):** shows the motor's on/off state, the potentiometer reading and the current speed.
+- **Button:** toggles the motor on and off, debounced so one press counts once. When the motor turns on, the dial's position sets the starting direction.
+- **Potentiometer:** sets the speed. The center position (with a ±50 dead zone) stops the motor, and the further the knob is from center, the faster it moves (1–7 RPM).
+- **Two-flag detection:** the ultrasonic sensor watches for flags on the cable. When a flag comes within 8 cm, the motor reverses direction, so the canopy moves back and forth between the two flags. The flag must move beyond 11 cm before it can trigger again, and the sensor ignores further triggers for 20 seconds after each reversal.
+- **Serial Monitor (9600 baud):** shows the motor's on/off state, each flag detection with a running count, the new direction and when the sensor is ready again.
 
 ### Uploading
 
